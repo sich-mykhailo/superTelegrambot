@@ -31,7 +31,6 @@ public class BotConfig {
 
     @Value("${bot.username}")
     String botUserName;
-
     @Value("${bot.webhook}")
     String webHookPath;
 
