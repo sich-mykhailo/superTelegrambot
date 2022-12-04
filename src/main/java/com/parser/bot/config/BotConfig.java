@@ -35,7 +35,7 @@ public class BotConfig {
     @Value("${bot.webhook}")
     String webHookPath;
 
-  //  @PostConstruct
+    @PostConstruct
     public void setWebhook() {
         RestTemplate restTemplate = new RestTemplate();
         try {
