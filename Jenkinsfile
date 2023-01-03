@@ -5,7 +5,7 @@ pipeline {
         stage('git repo & clean') {
             steps {
                 sh "rm -f -R ./parserBot"
-                sh "mkdir /usr/bin/parserBot"
+                sh "sudo mkdir /usr/bin/parserBot"
                 sh "git -C /usr/bin/parserBot clone https://github.com/sich-mykhailo/superTelegrambot.git"
                 sh "mvn clean package"
             }
