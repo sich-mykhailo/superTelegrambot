@@ -4,14 +4,10 @@ pipeline {
     stages {
         stage('git repo & clean') {
             steps {
-                sh "rmdir -f -R /s /q bot"
-                sh "git clone https://github.com/sich-mykhailo/superTelegrambot.git"
-                sh "mvn clean -f bot"
-            }
-        }
-        stage('Install') {
-            steps {
-                sh "mvn install -f superTelegrambot"
+                sh "rm -f -R ./parserBot"
+                sh "mkdir /usr/bin/parserBot"
+                sh "git -C /usr/bin/parserBot clone https://github.com/sich-mykhailo/superTelegrambot.git"
+                sh "mvn clean package"
             }
         }
         stage('Test') {
@@ -23,6 +19,6 @@ pipeline {
                     steps {
                         sh "mvn package -f superTelegrambot"
                     }
-                }
+          }
     }
 }
