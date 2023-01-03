@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('git repo & clean') {
             steps {
-                sh "-d /bot && rm -r /bot"
+                sh "rmdir -f -R /s /q bot"
                 sh "git clone https://github.com/sich-mykhailo/superTelegrambot.git"
                 sh "mvn clean -f bot"
             }
