@@ -19,7 +19,7 @@ import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Configuration
 public class AppConfig {
-    final BotConfig botConfig;
+    private final BotConfig botConfig;
 
     @Bean
     ObjectMapper customObjectMapper() {
@@ -29,7 +29,9 @@ public class AppConfig {
     @Bean
     @ConditionalOnMissingBean(TelegramBotsApi.class)
     public TelegramBotsApi telegramBotsApi() throws TelegramApiException {
-       return new TelegramBotsApi(DefaultBotSession.class);
+        TelegramBotsApi telegramBotsApi = new TelegramBotsApi(DefaultBotSession.class);
+        telegramBotsApi.registerBot(springWebhookBot(setWebhookInstance()), setWebhookInstance());
+        return telegramBotsApi;
     }
 
     @Bean
