@@ -29,11 +29,6 @@ public class AppConfig {
     }
 
     @Bean
-    public DefaultBotOptions setDefaultBotOption() {
-        return new DefaultBotOptions();
-    }
-
-    @Bean
     public Bot springWebhookBot(SetWebhook setWebhook) {
         Bot bot = new Bot(setWebhook);
         bot.setBotPath(botConfig.getWebHookPath());

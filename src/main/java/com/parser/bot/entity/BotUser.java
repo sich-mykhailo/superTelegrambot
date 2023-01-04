@@ -24,6 +24,6 @@ public class BotUser {
     private Integer processLimit;
     private boolean isRegistered;
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID assesKey;
+    private UUID assesKey = UUID.randomUUID();
     private String category;
 }

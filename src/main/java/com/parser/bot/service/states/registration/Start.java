@@ -21,7 +21,7 @@ public class Start implements State {
 
     @Override
     public BotApiMethod<?> handleInput(BotContext context) {
-        botService.sendImage(context.botUser().getChatId(), LOGO_PATH, FILE_NAME);
+        //botService.sendImage(context.botUser().getChatId(), LOGO_PATH, FILE_NAME);
         botService.sendMessage(context.botUser().getChatId(), WELCOME_MESSAGE,
                 keyboardCreator.createReplyRegistrationKeyboard());
         sendEvent(context.botUser().getChatId(), context.stateMachine(), STARTED);
