@@ -5,14 +5,11 @@ import com.parser.bot.service.Bot;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.experimental.FieldDefaults;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.client.RestTemplate;
-import org.telegram.telegrambots.meta.TelegramBotsApi;
+import org.telegram.telegrambots.bots.DefaultBotOptions;
 import org.telegram.telegrambots.meta.api.methods.updates.SetWebhook;
-import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
-import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
 
 
 @AllArgsConstructor
@@ -27,16 +24,13 @@ public class AppConfig {
     }
 
     @Bean
-    @ConditionalOnMissingBean(TelegramBotsApi.class)
-    public TelegramBotsApi telegramBotsApi() throws TelegramApiException {
-        TelegramBotsApi telegramBotsApi = new TelegramBotsApi(DefaultBotSession.class);
-        telegramBotsApi.registerBot(springWebhookBot(setWebhookInstance()), setWebhookInstance());
-        return telegramBotsApi;
+    public SetWebhook setWebhookInstance() {
+        return SetWebhook.builder().url(botConfig.getWebHookPath()).build();
     }
 
     @Bean
-    public SetWebhook setWebhookInstance() {
-        return SetWebhook.builder().url(botConfig.getWebHookPath()).build();
+    public DefaultBotOptions setDefaultBotOption() {
+        return new DefaultBotOptions();
     }
 
     @Bean
