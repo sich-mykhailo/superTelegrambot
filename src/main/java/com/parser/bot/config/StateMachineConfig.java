@@ -87,13 +87,7 @@ public class StateMachineConfig extends StateMachineConfigurerAdapter<ChatState,
                 .withExternal()
                 .source(ChatState.ENTER_REQUEST)
                 .target(ChatState.WAITING)
-                .event(ChatEvent.SUCCEED)
-
-                .and()
-                .withExternal()
-                .source(ChatState.WAITING)
-                .target(ChatState.CHECK_REQUEST)
-                .event(ChatEvent.CHECK_REQUEST_IS_CHOSEN);
+                .event(ChatEvent.SUCCEED);
     }
 
     @Override

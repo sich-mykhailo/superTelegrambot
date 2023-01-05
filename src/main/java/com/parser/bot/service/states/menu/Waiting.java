@@ -55,7 +55,11 @@ public class Waiting implements State {
                 botService.sendMessage(chatId, BotAnswer.HELP_ADDRESS);
             }
 
-            case CHECK_REQUESTS -> sendEvent(chatId, sm, ChatEvent.CHECK_REQUEST_IS_CHOSEN);
+            case CHECK_REQUESTS -> {
+                BotUser currentUser = userService.findByChatId(chatId);
+                botService.sendMessage(chatId, String.format(REQUESTS_CHECK_MESSAGE,
+                        currentUser.getProcessCount(), currentUser.getProcessLimit()));
+            }
 
             case PUT_IN_QUEUE -> {
                 sendEvent(chatId, sm, ChatEvent.PUT_IN_QUEUE_IS_CHOSEN);
