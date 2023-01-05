@@ -45,8 +45,6 @@ public class BotServiceImpl implements BotService {
         }
     }
 
-
-
     public void sendHelpMessage(BotContext context) {
         if (context.input().equals(BotCommands.HELP)) {
             sendMessage(context.botUser().getChatId(), "Відповіді на будь-які питання",

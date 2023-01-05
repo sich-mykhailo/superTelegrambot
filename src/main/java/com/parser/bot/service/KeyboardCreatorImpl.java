@@ -87,7 +87,7 @@ public class KeyboardCreatorImpl implements KeyboardCreator {
         final ReplyKeyboardMarkup replyKeyboardMarkup = new ReplyKeyboardMarkup();
         replyKeyboardMarkup.setSelective(false);
         replyKeyboardMarkup.setResizeKeyboard(true);
-        replyKeyboardMarkup.setOneTimeKeyboard(false);
+        replyKeyboardMarkup.setOneTimeKeyboard(true);
         List<KeyboardRow> keyboard = new ArrayList<>();
         KeyboardRow registration = new KeyboardRow();
         registration.add(new KeyboardButton("Реєстрація"));
