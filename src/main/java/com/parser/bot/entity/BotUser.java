@@ -21,7 +21,7 @@ public class BotUser {
     private String phone;
     private Boolean admin;
     private Integer processCount;
-    private Integer processLimit;
+    private Integer processLimit = 1;
     private boolean isRegistered;
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID assesKey = UUID.randomUUID();

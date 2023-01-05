@@ -22,8 +22,6 @@ import java.util.*;
 @Slf4j
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class BotConfig {
-    @Value("${bot.server.ngrok}")
-    private String ngrokAddress;
     @Value("${bot.token}")
     private String botToken;
     @Value("${bot.username}")
@@ -45,10 +43,12 @@ public class BotConfig {
         }
     }
 
-    private String getNgrokUrl() {
+   public static String getNgrokUrl() {
         RestTemplate restTemplate = new RestTemplate();
-        List<LinkedHashMap<String, String>>
-                tunnels = (ArrayList) restTemplate.getForObject(ngrokAddress, HashMap.class).get("tunnels");
+       ArrayList<LinkedHashMap<String, String>>
+                tunnels = (ArrayList) Objects
+                .requireNonNull(restTemplate.getForObject(Constants.NGROK_GET_TUNNELS_URL, HashMap.class))
+                .get("tunnels");
         return tunnels.stream()
                 .findFirst().orElseThrow(()
                         -> new RuntimeException("Can't get public url")).get("public_url");

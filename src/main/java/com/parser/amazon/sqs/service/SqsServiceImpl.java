@@ -1,5 +1,6 @@
 package com.parser.amazon.sqs.service;
 
+import com.parser.bot.config.BotConfig;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.aws.messaging.core.QueueMessagingTemplate;
@@ -20,6 +21,7 @@ public class SqsServiceImpl implements SqsService {
                 .setHeader(SENDER_HEADER, userId)
                 .setHeader(USER_EMAIL_HEADER, userEmail)
                 .setHeader(USER_INPUT_HEADER, input)
+                .setHeader(BOT_BASE_URL, BotConfig.getNgrokUrl())
                 .build();
         sqs.send(endPoint, msg);
     }
