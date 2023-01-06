@@ -12,7 +12,6 @@ public final class Constants {
     public static final String CHAT_ID_HEADER = "Chat_id";
 
     /** AWS */
-    public static final String QUEUE_NAME = "report-queue";
     public static final String SENDER_HEADER = "SenderId";
     public static final String USER_EMAIL_HEADER = "UserEmail";
     public static final String USER_INPUT_HEADER = "UserInput";

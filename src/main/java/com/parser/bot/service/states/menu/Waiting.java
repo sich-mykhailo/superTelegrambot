@@ -84,9 +84,10 @@ public class Waiting implements State {
                     if (Objects.nonNull(botUserByKey)) {
                         botUserByKey.setAssesKey(UUID.randomUUID());
                         userService.update(botUserByKey);
-                        emailService.sendSimpleEmail(to, CHANGE_KEY_SUBJECT,
-                                String.format(USER_INFO_MESSAGE,
-                                        botUserByKey.getEmail(), botUserByKey.getName(), botUserByKey.getAssesKey()));
+                        //TODO
+                        //emailService.sendSimpleEmail(to, CHANGE_KEY_SUBJECT,
+                           //     String.format(USER_INFO_MESSAGE,
+                            //            botUserByKey.getEmail(), botUserByKey.getName(), botUserByKey.getAssesKey()));
                         botService.sendMessage(botUser.getChatId(),
                                 String.format(EMAIL_SENT_MESSAGE, to));
                     } else {

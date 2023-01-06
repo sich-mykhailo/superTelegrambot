@@ -41,8 +41,9 @@ public class EnterName implements State {
             BotUser botUser = context.botUser();
             botUser.setName(context.input());
             userService.update(botUser);
-            emailService.sendSimpleEmail(to, NEW_USER_REGISTERED,
-                    String.format(BODY, botUser.getEmail(), botUser.getName(), botUser.getAssesKey()));
+            //TODO
+           // emailService.sendSimpleEmail(to, NEW_USER_REGISTERED,
+          //          String.format(BODY, botUser.getEmail(), botUser.getName(), botUser.getAssesKey()));
             sendEvent(chatId, context.stateMachine(), SUCCEED);
          botService.sendMessages(chatId,
                     List.of(REGISTRATION_IS_COMPLETE, telegramAddress, ENTER_KEY_MESSAGE));
