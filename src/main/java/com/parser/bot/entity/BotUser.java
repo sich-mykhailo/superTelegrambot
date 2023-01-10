@@ -2,28 +2,36 @@ package com.parser.bot.entity;
 
 import com.parser.bot.service.states.ChatState;
 import lombok.*;
-import javax.persistence.*;
+import lombok.experimental.FieldDefaults;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.GenerationType;
+import javax.persistence.Enumerated;
+import javax.persistence.EnumType;
 import java.util.UUID;
 
 @Getter
 @Setter
 @Table(name = "users")
 @Entity
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class BotUser {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
-    private String name;
-    private String chatId;
+    Long id;
+    String name;
+    String chatId;
     @Enumerated(EnumType.STRING)
-    private ChatState state;
-    private String email;
-    private String phone;
-    private Boolean admin;
-    private Integer processCount;
-    private Integer processLimit;
-    private boolean isRegistered;
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID assesKey = UUID.randomUUID();
-    private String category;
+    ChatState state;
+    String email;
+    String phone;
+    Boolean admin;
+    Integer processCount;
+    Integer processLimit;
+    boolean isRegistered;
+    UUID assesKey = UUID.randomUUID();
+    String category;
 }

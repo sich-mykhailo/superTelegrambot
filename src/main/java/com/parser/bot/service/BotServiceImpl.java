@@ -3,6 +3,8 @@ package com.parser.bot.service;
 import com.parser.bot.service.states.BotContext;
 import com.parser.util.BotCommands;
 import com.parser.util.Constants;
+import lombok.AccessLevel;
+import lombok.experimental.FieldDefaults;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
@@ -22,9 +24,10 @@ import java.util.Objects;
 
 @Service
 @Log4j2
+@FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
 public class BotServiceImpl implements BotService {
-    private final Bot bot;
-    private final KeyboardCreator keyboardCreator;
+    Bot bot;
+    KeyboardCreator keyboardCreator;
 
     public BotServiceImpl(@Lazy Bot bot,
                           KeyboardCreator keyboardCreator) {

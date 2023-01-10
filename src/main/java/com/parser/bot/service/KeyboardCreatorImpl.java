@@ -1,5 +1,7 @@
 package com.parser.bot.service;
 
+import lombok.AccessLevel;
+import lombok.experimental.FieldDefaults;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -14,9 +16,10 @@ import java.util.List;
 
 @Log4j2
 @Component
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class KeyboardCreatorImpl implements KeyboardCreator {
     @Value("${bot.address.help}")
-    private String helpAddress;
+    String helpAddress;
 
     public InlineKeyboardMarkup createCategoryKeyboard() {
         InlineKeyboardMarkup inlineKeyboardMarkup = new InlineKeyboardMarkup();

@@ -7,7 +7,9 @@ import com.parser.bot.service.states.BotContext;
 import com.parser.bot.service.states.State;
 import com.parser.util.BotAnswer;
 import com.parser.util.EmailUtils;
+import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
+import lombok.experimental.FieldDefaults;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.BotApiMethod;
 
@@ -16,9 +18,10 @@ import static com.parser.util.BotAnswer.EMAIL_INCORRECT_MESSAGE;
 
 @Component
 @RequiredArgsConstructor
+@FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
 public class ChangeEmail implements State {
-    private final UserService userService;
-    private final BotService botService;
+    UserService userService;
+    BotService botService;
 
     @Override
     public BotApiMethod<?> handleInput(BotContext context) {

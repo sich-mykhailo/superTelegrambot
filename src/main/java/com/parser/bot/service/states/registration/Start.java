@@ -4,7 +4,9 @@ import com.parser.bot.service.BotService;
 import com.parser.bot.service.KeyboardCreator;
 import com.parser.bot.service.states.BotContext;
 import com.parser.bot.service.states.State;
+import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
+import lombok.experimental.FieldDefaults;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.BotApiMethod;
 
@@ -14,14 +16,13 @@ import static com.parser.util.Constants.LOGO_PATH;
 
 @Component
 @RequiredArgsConstructor
+@FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
 public class Start implements State {
-    private final static String FILE_NAME = "logo.jpg";
-    private final KeyboardCreator keyboardCreator;
-    private final BotService botService;
+    KeyboardCreator keyboardCreator;
+    BotService botService;
 
     @Override
     public BotApiMethod<?> handleInput(BotContext context) {
-        //botService.sendImage(context.botUser().getChatId(), LOGO_PATH, FILE_NAME);
         botService.sendMessage(context.botUser().getChatId(), WELCOME_MESSAGE,
                 keyboardCreator.createReplyRegistrationKeyboard());
         sendEvent(context.botUser().getChatId(), context.stateMachine(), STARTED);

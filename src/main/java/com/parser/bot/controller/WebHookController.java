@@ -1,16 +1,17 @@
 package com.parser.bot.controller;
 
-import com.parser.bot.dto.TokenRequestDto;
 import com.parser.bot.service.Bot;
-import org.springframework.http.ResponseEntity;
+import lombok.AccessLevel;
+import lombok.experimental.FieldDefaults;
 import org.springframework.web.bind.annotation.*;
 import org.telegram.telegrambots.meta.api.methods.BotApiMethod;
 import org.telegram.telegrambots.meta.api.objects.Update;
 
 @RequestMapping
 @RestController
+@FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
 public class WebHookController {
-    private final Bot telegramBot;
+    Bot telegramBot;
 
     public WebHookController(Bot telegramBot) {
         this.telegramBot = telegramBot;
@@ -24,10 +25,5 @@ public class WebHookController {
     @GetMapping("/health-check")
     public String test() {
         return "It's works!";
-    }
-
-    @GetMapping("/getRefreshToken")
-    public ResponseEntity<TokenRequestDto> createToken(TokenRequestDto tokenRequestDto) {
-        return ResponseEntity.ok(tokenRequestDto);
     }
 }

@@ -1,7 +1,9 @@
 package com.parser.bot.service;
 
 import com.parser.util.Emojis;
+import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
+import lombok.experimental.FieldDefaults;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.BotApiMethod;
 import org.telegram.telegrambots.meta.api.objects.CallbackQuery;
@@ -13,9 +15,10 @@ import static com.parser.util.BotAnswer.CATEGORY_IS_CHOSEN;
 
 @Component
 @RequiredArgsConstructor
+@FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
 public class CallBackQueryHandlerImpl implements CallBackQueryHandler {
-    private final KeyboardHandler keyboardHandler;
-    private final BotService botService;
+    KeyboardHandler keyboardHandler;
+    BotService botService;
 
     @Override
     public BotApiMethod<?> handleCategories(Update update) {

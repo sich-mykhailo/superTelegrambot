@@ -1,9 +1,14 @@
 package com.parser.bot.dto;
 
-import lombok.Data;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.experimental.FieldDefaults;
 
-@Data
+@Getter
+@Setter
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class TokenRequestDto {
-    private String code;
-    private String state;
+    String code;
+    String state;
 }

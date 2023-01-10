@@ -8,7 +8,9 @@ import com.parser.bot.service.states.BotContext;
 import com.parser.bot.service.states.State;
 import com.parser.bot.service.states.ChatEvent;
 import com.parser.util.OlxUrls;
+import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
+import lombok.experimental.FieldDefaults;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.BotApiMethod;
@@ -18,10 +20,11 @@ import static com.parser.util.BotAnswer.*;
 @Component
 @RequiredArgsConstructor
 @Log4j2
+@FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
 public class EnterRequest implements State {
-    private final UserService userService;
-    private final BotService botService;
-    private final SqsService sqsService;
+    UserService userService;
+    BotService botService;
+    SqsService sqsService;
 
     @Override
     public BotApiMethod<?> handleInput(BotContext context) {

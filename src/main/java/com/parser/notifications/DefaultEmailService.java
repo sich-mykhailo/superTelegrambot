@@ -1,6 +1,8 @@
 package com.parser.notifications;
 
+import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
+import lombok.experimental.FieldDefaults;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.mail.MailSendException;
 import org.springframework.mail.SimpleMailMessage;
@@ -10,8 +12,9 @@ import org.springframework.stereotype.Service;
 @Service
 @Log4j2
 @RequiredArgsConstructor
+@FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
 public class DefaultEmailService implements EmailService {
-    private final JavaMailSender emailSender;
+    JavaMailSender emailSender;
 
     @Override
     public void sendSimpleEmail(String toAddress, String subject, String message) {

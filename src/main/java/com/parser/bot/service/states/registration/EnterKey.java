@@ -5,21 +5,28 @@ import com.parser.bot.service.BotService;
 import com.parser.bot.service.UserService;
 import com.parser.bot.service.states.BotContext;
 import com.parser.bot.service.states.State;
+import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
+import lombok.experimental.FieldDefaults;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.BotApiMethod;
 
 import java.util.List;
 import java.util.UUID;
+import java.util.regex.Pattern;
 
 import static com.parser.bot.service.states.ChatEvent.SUCCEED;
 import static com.parser.util.BotAnswer.*;
 
 @Component
 @RequiredArgsConstructor
+@FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
 public class EnterKey implements State {
-    private final UserService userService;
-    private final BotService botService;
+    static Pattern UUID_REGEX =
+            Pattern.compile("^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$");
+
+    UserService userService;
+    BotService botService;
 
     @Override
     public BotApiMethod<?> handleInput(BotContext context) {
@@ -32,16 +39,14 @@ public class EnterKey implements State {
             botUser.setRegistered(true);
             userService.update(botUser);
             sendEvent(chatId, context.stateMachine(), SUCCEED);
-          botService.sendMessage(chatId, SUCCESSFULLY_PURCHASE_MESSAGE);
+            botService.sendMessage(chatId, SUCCESSFULLY_PURCHASE_MESSAGE);
         } else {
-            try {
-                UUID.fromString(key);
-            botService.sendMessages(chatId,
-                        List.of(KEY_IS_WRONG_MESSAGE, ENTER_KEY_AGAIN_MESSAGE));
-            } catch (IllegalArgumentException e) {
-              botService.sendMessages(chatId,
-                        List.of(KEY_IS_REQUIRED_MESSAGE, ENTER_KEY_AGAIN_MESSAGE));
+            if (!UUID_REGEX.matcher(key).matches()) {
+                botService.sendMessages(chatId,
+                        List.of(INVALID_KEY_MESSAGE, ENTER_KEY_AGAIN_MESSAGE));
             }
+            botService.sendMessages(chatId,
+                    List.of(WRONG_KEY_MESSAGE, ENTER_KEY_AGAIN_MESSAGE));
         }
         return null;
     }

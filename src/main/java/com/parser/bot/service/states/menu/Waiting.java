@@ -11,7 +11,10 @@ import com.parser.bot.service.states.State;
 import com.parser.notifications.EmailService;
 import com.parser.util.BotAnswer;
 import com.parser.util.BotCommands;
+import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
+import lombok.experimental.FieldDefaults;
+import lombok.experimental.NonFinal;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.statemachine.StateMachine;
@@ -27,13 +30,15 @@ import static com.parser.util.BotCommands.*;
 @Component
 @Log4j2
 @RequiredArgsConstructor
+@FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
 public class Waiting implements State {
     @Value("${notification.email.admin}")
-    private String to;
-    private final KeyboardCreator keyboardCreator;
-    private final BotService botService;
-    private final UserService userService;
-    private final EmailService emailService;
+    @NonFinal
+    String to;
+    KeyboardCreator keyboardCreator;
+    BotService botService;
+    UserService userService;
+    EmailService emailService;
 
     @Override
     public BotApiMethod<?> handleInput(BotContext context) {
@@ -84,10 +89,9 @@ public class Waiting implements State {
                     if (Objects.nonNull(botUserByKey)) {
                         botUserByKey.setAssesKey(UUID.randomUUID());
                         userService.update(botUserByKey);
-                        //TODO
-                        //emailService.sendSimpleEmail(to, CHANGE_KEY_SUBJECT,
-                           //     String.format(USER_INFO_MESSAGE,
-                            //            botUserByKey.getEmail(), botUserByKey.getName(), botUserByKey.getAssesKey()));
+                        emailService.sendSimpleEmail(to, CHANGE_KEY_SUBJECT,
+                                String.format(USER_INFO_MESSAGE,
+                                        botUserByKey.getEmail(), botUserByKey.getName(), botUserByKey.getAssesKey()));
                         botService.sendMessage(botUser.getChatId(),
                                 String.format(EMAIL_SENT_MESSAGE, to));
                     } else {
