@@ -11,10 +11,10 @@ import org.springframework.web.client.RestTemplate;
 import org.telegram.telegrambots.meta.api.methods.updates.SetWebhook;
 
 @AllArgsConstructor
-@FieldDefaults(level = AccessLevel.PRIVATE)
 @Configuration
+@FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
 public class AppConfig {
-    private final BotConfig botConfig;
+    BotConfig botConfig;
 
     @Bean
     ObjectMapper customObjectMapper() {

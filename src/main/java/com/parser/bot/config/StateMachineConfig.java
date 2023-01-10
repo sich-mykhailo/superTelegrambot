@@ -6,14 +6,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.statemachine.config.EnableStateMachine;
 import org.springframework.statemachine.config.StateMachineConfigurerAdapter;
-import org.springframework.statemachine.config.builders.StateMachineConfigurationConfigurer;
 import org.springframework.statemachine.config.builders.StateMachineStateConfigurer;
 import org.springframework.statemachine.config.builders.StateMachineTransitionConfigurer;
-import org.springframework.statemachine.listener.StateMachineListenerAdapter;
-import org.springframework.statemachine.state.State;
 
 import java.util.EnumSet;
-import java.util.Objects;
 
 @EnableStateMachine
 @Configuration
@@ -88,20 +84,5 @@ public class StateMachineConfig extends StateMachineConfigurerAdapter<ChatState,
                 .source(ChatState.ENTER_REQUEST)
                 .target(ChatState.WAITING)
                 .event(ChatEvent.SUCCEED);
-    }
-
-    @Override
-    public void configure(StateMachineConfigurationConfigurer<ChatState, ChatEvent> config) throws Exception {
-        StateMachineListenerAdapter<ChatState, ChatEvent> adapter = new StateMachineListenerAdapter<>() {
-
-            @Override
-            public void stateChanged(State<ChatState, ChatEvent> from, State<ChatState, ChatEvent> to) {
-                log.debug(String.format("stateChanged (from: %s, to: %s)",
-                        Objects.nonNull(from) ? from.getId() : "empty state", to.getId()));
-            }
-        };
-        config.withConfiguration()
-                .autoStartup(true)
-                .listener(adapter);
     }
 }

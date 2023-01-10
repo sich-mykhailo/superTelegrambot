@@ -8,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
+
 import javax.annotation.PostConstruct;
 import java.util.*;
 
@@ -17,9 +18,9 @@ import java.util.*;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class BotConfig {
     @Value("${bot.token}")
-    private String botToken;
+    String botToken;
     @Value("${bot.username}")
-    private String botUserName;
+    String botUserName;
 
     @PostConstruct
     public void setWebhook() {
@@ -37,10 +38,10 @@ public class BotConfig {
         }
     }
 
-   public static String getNgrokUrl() {
+    @SuppressWarnings("unchecked")
+    public static String getNgrokUrl() {
         RestTemplate restTemplate = new RestTemplate();
-       ArrayList<LinkedHashMap<String, String>>
-                tunnels = (ArrayList) Objects
+        ArrayList<LinkedHashMap<String, String>> tunnels = (ArrayList<LinkedHashMap<String, String>>) Objects
                 .requireNonNull(restTemplate.getForObject(Constants.NGROK_GET_TUNNELS_URL, HashMap.class))
                 .get("tunnels");
         return tunnels.stream()

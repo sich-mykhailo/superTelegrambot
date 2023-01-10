@@ -4,7 +4,9 @@ import com.parser.bot.entity.BotUser;
 import com.parser.bot.service.UserService;
 import com.parser.bot.service.states.ChatEvent;
 import com.parser.bot.service.states.ChatState;
+import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
+import lombok.experimental.FieldDefaults;
 import org.springframework.messaging.Message;
 import org.springframework.statemachine.StateMachine;
 import org.springframework.statemachine.state.State;
@@ -16,8 +18,9 @@ import java.util.Optional;
 
 @RequiredArgsConstructor
 @Component
+@FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
 public class ChatStateChangeInterceptor extends StateMachineInterceptorAdapter<ChatState, ChatEvent> {
-    private final UserService userService;
+    UserService userService;
 
     @Override
     public void preStateChange(State<ChatState, ChatEvent> state,
@@ -28,9 +31,9 @@ public class ChatStateChangeInterceptor extends StateMachineInterceptorAdapter<C
         Optional.ofNullable(message)
                 .flatMap(msg -> Optional.ofNullable((String) message.getHeaders().getOrDefault("Chat_id", -1)))
                 .ifPresent(chatId -> {
-            BotUser botUser = userService.findByChatId(chatId);
-            botUser.setState(state.getId());
-            userService.save(botUser);
-        });
+                    BotUser botUser = userService.findByChatId(chatId);
+                    botUser.setState(state.getId());
+                    userService.save(botUser);
+                });
     }
 }
