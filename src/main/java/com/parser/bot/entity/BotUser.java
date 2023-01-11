@@ -32,6 +32,6 @@ public class BotUser {
     Integer processCount;
     Integer processLimit;
     boolean isRegistered;
-    UUID assesKey = UUID.randomUUID();
+    UUID assesKey;
     String category;
 }
