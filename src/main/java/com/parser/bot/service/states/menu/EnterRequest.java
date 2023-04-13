@@ -7,6 +7,7 @@ import com.parser.bot.service.UserService;
 import com.parser.bot.service.states.BotContext;
 import com.parser.bot.service.states.State;
 import com.parser.bot.service.states.ChatEvent;
+import com.parser.util.BotCommands;
 import com.parser.util.OlxUrls;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -28,6 +29,10 @@ public class EnterRequest implements State {
 
     @Override
     public BotApiMethod<?> handleInput(BotContext context) {
+        if (isMenuCommand(context.input())) {
+            botService.sendMessage(context.botUser().getChatId(), CONTINUE_REQUEST_MESSAGE  );
+            return null;
+        }
         BotUser botUser = context.botUser();
         String input = context.input();
         String chatId = context.botUser().getChatId();
@@ -44,5 +49,11 @@ public class EnterRequest implements State {
             log.error("Something went wrong", e);
         }
         return null;
+    }
+
+    private boolean isMenuCommand(String command) {
+        return command.equals(BotCommands.CHANGE_EMAIL)
+                || command.equals(BotCommands.CHECK_REQUESTS)
+                || command.equals(BotCommands.HELP);
     }
 }

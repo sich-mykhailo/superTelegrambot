@@ -80,8 +80,8 @@ public class StateMachineConfig extends StateMachineConfigurerAdapter<ChatState,
                 .and()
                 .withExternal()
                 .source(ChatState.ENTER_REQUEST)
-                .target(ChatState.WAITING)
-                .event(ChatEvent.SUCCEED)
+                .target(ChatState.CHANGE_EMAIL)
+                .event(ChatEvent.CHANGE_EMAIL_IS_CHOSEN)
 
                 .and()
                 .withExternal()
