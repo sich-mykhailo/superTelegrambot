@@ -24,15 +24,19 @@ pipeline {
 
     stages {
      stage('Delete old image') {
-       sh sudo docker ps -a
-       sh sudo docker stop container
-       sh sudo docker rm container
-       sh sudo docker rmi super-telegram-bot:latest
-        }
-      stage('Adjust NgRok') {
-        sh sudo "start to create https endpoint"
-        sh sudo docker run -it -e NGROK_AUTHTOKEN=${NGROK_TOKEN} -p 4040:4040 ngrok/ngrok http ${PORT}
+       steps {
+         sh sudo docker ps -a
+         sh sudo docker stop container
+         sh sudo docker rm container
+         sh sudo docker rmi super-telegram-bot:latest
        }
+     }
+      stage('Adjust NgRok') {
+        steps {
+          sh sudo "start to create https endpoint"
+          sh sudo docker run -it -e NGROK_AUTHTOKEN=${NGROK_TOKEN} -p 4040:4040 ngrok/ngrok http ${PORT}
+        }
+      }
        stage('Build Docker Image') {
             steps {
             sh sudo echo "build.."
