@@ -25,7 +25,6 @@ pipeline {
        steps {
         script {
           try {
-            sh 'docker stop container'
             sh 'docker rm container'
           } catch(e) {
             sh '"echo container not found"'
