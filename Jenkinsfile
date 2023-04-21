@@ -30,8 +30,7 @@ pipeline {
          sh sudo docker ps -a
          sh sudo docker stop container
          sh sudo docker rm container
-         sh sudo docker rmi super-telegram-bot:latest
-         }
+       }
      }
 
       stage('Adjust NgRok') {
