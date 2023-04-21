@@ -21,16 +21,19 @@ pipeline {
 
     stages {
 
-     stage('Delete old image') {
-       steps {
-        script {
-          try {
-            sh 'docker rm container'
-          } catch(e) {
-            sh '"echo container not found"'
-          }
-         }
-       }
+     stages {
+        stage('Delete old image') {
+          steps {
+            script {
+              def container_exists = sh(script: "docker ps -aq -f name=container", returnStatus: true) == 0
+              if (container_exists) {
+                sh 'docker stop container'
+                sh 'docker rm container'
+              } else {
+                echo "Container does not exist"
+              }
+            }
+        }
      }
 
       stage('Adjust NgRok') {
