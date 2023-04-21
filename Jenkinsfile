@@ -23,11 +23,13 @@ pipeline {
 
      stage('Delete old image') {
        steps {
-       try {
-         sh 'docker stop container'
-         sh 'docker rm container'
-       } catch(e) {
-         sh '"echo Container not found"'
+        script {
+          try {
+            sh 'docker stop container'
+            sh 'docker rm container'
+          } catch(e) {
+            sh '"echo container not found"'
+          }
          }
        }
      }
