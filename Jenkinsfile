@@ -33,30 +33,30 @@ pipeline {
         }
       }
     }
-  }
 
-  stage('Adjust NgRok') {
-    steps {
-      sh '"convert http to https"'
-      sh 'docker run -it -e NGROK_AUTHTOKEN=${NGROK_TOKEN} -p 4040:4040 ngrok/ngrok http ${PORT}'
+
+    stage('Adjust NgRok') {
+      steps {
+        sh '"convert http to https"'
+        sh 'docker run -it -e NGROK_AUTHTOKEN=${NGROK_TOKEN} -p 4040:4040 ngrok/ngrok http ${PORT}'
+      }
     }
-  }
 
-  stage('Build Docker Image') {
-    steps {
-      sh 'echo "build.."'
-      sh 'docker build https://github.com/sich-mykhailo/superTelegrambot.git -t super-telegram-bot:latest'
+    stage('Build Docker Image') {
+      steps {
+        sh 'echo "build.."'
+        sh 'docker build https://github.com/sich-mykhailo/superTelegrambot.git -t super-telegram-bot:latest'
+      }
     }
-  }
 
-  stage ('Deploy') {
-    steps {
-      sh 'docker run -e AWS_ACCESS_KEY=${AWS_ACCESS_KEY} -e AWS_SECRET_KEY=${AWS_SECRET_KEY} -e AWS_SQS_URI=${AWS_SQS_URI} \
-      -e DB_PASSWORD=${DB_PASSWORD} -e DB_URL=${DB_URL} -e DB_USER_NAME=${DB_USER_NAME} -e MAIL_PASSWORD=${MAIL_PASSWORD} \
-      -e MAIL_USER_NAME=${MAIL_USER_NAME} -e TELEGRAM_ADMIN_EMAIL=${TELEGRAM_ADMIN_EMAIL} -e TELEGRAM_BOT_TOKEN=${TELEGRAM_BOT_TOKEN} \
-      -e TELEGRAM_BOT_USER_NAME=${TELEGRAM_BOT_USER_NAME} \
-      -e TELEGRAM_HELP_EMAIL=${TELEGRAM_HELP_EMAIL} -d --name container -p ${PORT}:${PORT} super-telegram-bot:latest'
+    stage ('Deploy') {
+      steps {
+        sh 'docker run -e AWS_ACCESS_KEY=${AWS_ACCESS_KEY} -e AWS_SECRET_KEY=${AWS_SECRET_KEY} -e AWS_SQS_URI=${AWS_SQS_URI} \
+        -e DB_PASSWORD=${DB_PASSWORD} -e DB_URL=${DB_URL} -e DB_USER_NAME=${DB_USER_NAME} -e MAIL_PASSWORD=${MAIL_PASSWORD} \
+        -e MAIL_USER_NAME=${MAIL_USER_NAME} -e TELEGRAM_ADMIN_EMAIL=${TELEGRAM_ADMIN_EMAIL} -e TELEGRAM_BOT_TOKEN=${TELEGRAM_BOT_TOKEN} \
+        -e TELEGRAM_BOT_USER_NAME=${TELEGRAM_BOT_USER_NAME} \
+        -e TELEGRAM_HELP_EMAIL=${TELEGRAM_HELP_EMAIL} -d --name container -p ${PORT}:${PORT} super-telegram-bot:latest'
+      }
     }
   }
 }
-
