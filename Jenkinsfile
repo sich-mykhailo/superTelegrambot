@@ -22,18 +22,11 @@ pipeline {
   stages {
     stage('Delete old image') {
       steps {
-        script {
-          def container_exists = sh(script: "docker ps -aq -f name=container", returnStatus: true) == 0
-          if (container_exists) {
-            sh 'docker stop container'
-            sh 'docker rm container'
-          } else {
-            sh echo "Container does not exist"
-          }
-        }
+        sh "docker kill $(docker ps -q)"
+        sh "docker rm $(docker ps -a -q)"
+        sh "docker rmi $(docker images -q)"
       }
     }
-
 
     stage('Adjust NgRok') {
       steps {
