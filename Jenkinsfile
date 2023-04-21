@@ -22,9 +22,9 @@ pipeline {
   stages {
     stage('Delete old image') {
       steps {
-        sh 'docker kill $(docker ps -q)'
-        sh 'docker rm $(docker ps -a -q)'
-        sh 'docker rmi $(docker images -q)'
+        sh 'docker kill $(docker ps -q) || true'
+        sh 'docker rm $(docker ps -a -q) || true'
+        sh 'docker rmi $(docker images -q) || true'
       }
     }
 
