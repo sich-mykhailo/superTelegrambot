@@ -31,7 +31,7 @@ pipeline {
     stage('Adjust NgRok') {
       steps {
         sh '"convert http to https"'
-        sh 'docker run -it -e NGROK_AUTHTOKEN=${NGROK_TOKEN} -p 4040:4040 ngrok/ngrok http ${PORT}'
+        sh 'docker run -d -e NGROK_AUTHTOKEN=${NGROK_TOKEN} -p 4040:4040 ngrok/ngrok http ${PORT}'
       }
     }
 
