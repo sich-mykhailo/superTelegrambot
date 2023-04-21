@@ -19,9 +19,7 @@ pipeline {
         TELEGRAM_HELP_EMAIL="${TELEGRAM_HELP_EMAIL}"
     }
 
-    stages {
-
-     stages {
+      stages {
         stage('Delete old image') {
           steps {
             script {
@@ -30,11 +28,12 @@ pipeline {
                 sh 'docker stop container'
                 sh 'docker rm container'
               } else {
-                echo "Container does not exist"
+                sh echo "Container does not exist"
               }
             }
+          }
         }
-     }
+      }
 
       stage('Adjust NgRok') {
         steps {
