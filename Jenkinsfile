@@ -23,9 +23,10 @@ pipeline {
   stages {
     stage('Delete old image') {
       steps {
-        sh '${CONNECT_TO_REMOTE_SERVER} docker kill ngrok/ngrok || true'
-        sh '${CONNECT_TO_REMOTE_SERVER} docker rm ngrok/ngrok || true'
-        sh '${CONNECT_TO_REMOTE_SERVER} docker rmi $(docker images -q)'
+        sh '${CONNECT_TO_REMOTE_SERVER} docker kill ngrok || true'
+        sh '${CONNECT_TO_REMOTE_SERVER} docker rm ngrok || true'
+        sh  '${CONNECT_TO_REMOTE_SERVER} docker kill super-telegram-bot || true'
+        sh '${CONNECT_TO_REMOTE_SERVER} docker rmi super-telegram-bot || true'
       }
     }
 
@@ -33,7 +34,7 @@ pipeline {
       steps {
         sh 'echo "convert http to https"'
         sh '${CONNECT_TO_REMOTE_SERVER} \
-            docker run -d -e NGROK_AUTHTOKEN=${NGROK_TOKEN} -p 4040:4040 ngrok/ngrok http ${PORT}'
+            docker run -d -e NGROK_AUTHTOKEN=${NGROK_TOKEN} -p 4040:4040 ngrok/ngrok http ${PORT} ngrok'
       }
     }
 
