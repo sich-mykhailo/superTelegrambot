@@ -23,7 +23,7 @@ pipeline {
     stage('Delete old image') {
       steps {
         sh '${CONNECT_TO_REMOTE_SERVER} docker stop super-telegram-bot || true && docker rm super-telegram-bot || true'
-        sh '${CONNECT_TO_REMOTE_SERVER} docker rmi super-telegram-bot:latest --force || true'
+        sh '${CONNECT_TO_REMOTE_SERVER} docker rmi super-telegram-bot:latest || true'
       }
     }
 
