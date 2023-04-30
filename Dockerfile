@@ -4,9 +4,7 @@ RUN mvn clean package
 
 FROM amazoncorretto:17-alpine-jdk
 RUN apk update
-RUN apk add --no-cache apk-tools
-RUN apk add --no-cache --repository=http://dl-cdn.alpinelinux.org/alpine/edge/main snapd
-RUN sudo snap install ngrok
+RUN snap install ngrok
 RUN ngrok http 5050
 COPY --from=build ./target/superpelegrambot-0.0.1-SNAPSHOT.jar ./superpelegrambot-0.0.1-SNAPSHOT.jar
 EXPOSE 8080
