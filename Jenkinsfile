@@ -17,40 +17,37 @@ pipeline {
     TELEGRAM_BOT_TOKEN="${TELEGRAM_BOT_TOKEN}"
     TELEGRAM_BOT_USER_NAME="${TELEGRAM_BOT_USER_NAME}"
     TELEGRAM_HELP_EMAIL="${TELEGRAM_HELP_EMAIL}"
-    PRIVATE_SSH_KAY="${PRIVATE_SSH_KAY}"
-    CONTABO_USER_NAME="${CONTABO_USER_NAME}"
-    CONTABO_SERVER_IP="${CONTABO_SERVER_IP}"
-    SERVER_PASS="${SERVER_PASS}"
+    CONNECT_TO_REMOTE_SERVER="${CONNECT_TO_REMOTE_SERVER}"
   }
 
   stages {
     stage('Delete old image') {
       steps {
-        sh 'sshpass -p ${SERVER_PASS} ssh ${CONTABO_USER_NAME}@${CONTABO_SERVER_IP} docker kill $(docker ps -q) || true'
-        sh 'sshpass -p ${SERVER_PASS} ssh ${CONTABO_USER_NAME}@${CONTABO_SERVER_IP} docker rm $(docker ps -a -q) || true'
-        sh 'sshpass -p ${SERVER_PASS} ssh ${CONTABO_USER_NAME}@${CONTABO_SERVER_IP} docker rmi $(docker images -q) || true'
+        sh '${CONNECT_TO_REMOTE_SERVER} docker kill $(docker ps -q) || true'
+        sh '${CONNECT_TO_REMOTE_SERVER} docker rm $(docker ps -a -q) || true'
+        sh '${CONNECT_TO_REMOTE_SERVER} docker rmi $(docker images -q) || true'
       }
     }
 
     stage('Adjust NgRok') {
       steps {
         sh 'echo "convert http to https"'
-        sh 'sshpass -p ${SERVER_PASS} ssh ${CONTABO_USER_NAME}@${CONTABO_SERVER_IP} \
-            docker run -d -e NGROK_AUTHTOKEN=${NGROK_TOKEN} -p 4040:4040 ngrok/ngrok http ${PORT} || true'
+        sh '${CONNECT_TO_REMOTE_SERVER} \
+            docker run -d -e NGROK_AUTHTOKEN=${NGROK_TOKEN} -p 4040:4040 ngrok/ngrok http ${PORT}'
       }
     }
 
     stage('Build Docker Image') {
       steps {
         sh 'echo "build.."'
-        sh 'sshpass -p ${SERVER_PASS} ssh ${CONTABO_USER_NAME}@${CONTABO_SERVER_IP} \
+        sh '${CONNECT_TO_REMOTE_SERVER} \
             docker build https://github.com/sich-mykhailo/superTelegrambot.git -t super-telegram-bot:latest'
       }
     }
 
     stage ('Deploy') {
       steps {
-      sh 'sshpass -p ${SERVER_PASS} ssh ${CONTABO_USER_NAME}@${CONTABO_SERVER_IP} \
+      sh '${CONNECT_TO_REMOTE_SERVER} \
           docker run -e AWS_ACCESS_KEY=${AWS_ACCESS_KEY} \
                           -e AWS_SECRET_KEY=${AWS_SECRET_KEY} \
                           -e AWS_SQS_URI=${AWS_SQS_URI} \
