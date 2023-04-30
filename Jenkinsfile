@@ -50,7 +50,7 @@ pipeline {
                           -e TELEGRAM_ADMIN_EMAIL=${TELEGRAM_ADMIN_EMAIL} \
                           -e TELEGRAM_BOT_TOKEN=${TELEGRAM_BOT_TOKEN} \
                           -e TELEGRAM_BOT_USER_NAME=${TELEGRAM_BOT_USER_NAME} \
-                          -e TELEGRAM_HELP_EMAIL=${TELEGRAM_HELP_EMAIL} -d --name super-telegram-bot -p ${PORT}:${PORT} super-telegram-bot:latest'
+                          -e TELEGRAM_HELP_EMAIL=${TELEGRAM_HELP_EMAIL} -d --name super-telegram-bot -p 5050:5050 super-telegram-bot:latest'
       }
     }
   }
