@@ -1,7 +1,7 @@
 pipeline {
   agent any
   environment {
-    PORT="${PORT_5050}"
+    PORT="${PORT}"
     PARSER_ADMIN_EMAIL="${PARSER_ADMIN_EMAIL}"
     AWS_ACCESS_KEY="${AWS_ACCESS_KEY}"
     AWS_SECRET_KEY="${AWS_SECRET_KEY}"
@@ -39,7 +39,7 @@ pipeline {
     stage ('Deploy') {
       steps {
       sh '${CONNECT_TO_REMOTE_SERVER} \
-          docker run -it -e AWS_ACCESS_KEY=${AWS_ACCESS_KEY} \
+          docker run -e AWS_ACCESS_KEY=${AWS_ACCESS_KEY} \
                           -e AWS_SECRET_KEY=${AWS_SECRET_KEY} \
                           -e AWS_SQS_URI=${AWS_SQS_URI} \
                           -e DB_PASSWORD=${DB_PASSWORD} \
