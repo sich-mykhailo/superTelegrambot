@@ -39,7 +39,7 @@ pipeline {
     stage ('Deploy') {
       steps {
       sh '${CONNECT_TO_REMOTE_SERVER} \
-          docker run --rm --network host -e AWS_ACCESS_KEY=${AWS_ACCESS_KEY} \
+          docker run --network="host" -e AWS_ACCESS_KEY=${AWS_ACCESS_KEY} \
                           -e AWS_SECRET_KEY=${AWS_SECRET_KEY} \
                           -e AWS_SQS_URI=${AWS_SQS_URI} \
                           -e DB_PASSWORD=${DB_PASSWORD} \
@@ -50,7 +50,7 @@ pipeline {
                           -e TELEGRAM_ADMIN_EMAIL=${TELEGRAM_ADMIN_EMAIL} \
                           -e TELEGRAM_BOT_TOKEN=${TELEGRAM_BOT_TOKEN} \
                           -e TELEGRAM_BOT_USER_NAME=${TELEGRAM_BOT_USER_NAME} \
-                          -e TELEGRAM_HELP_EMAIL=${TELEGRAM_HELP_EMAIL} -d --name super-telegram-bot super-telegram-bot:latest'
+                          -e TELEGRAM_HELP_EMAIL=${TELEGRAM_HELP_EMAIL} -d --name super-telegram-bot -p 5050:5050 super-telegram-bot:latest'
       }
     }
   }
