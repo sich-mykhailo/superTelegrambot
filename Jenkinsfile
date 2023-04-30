@@ -28,6 +28,7 @@ pipeline {
       steps {
         sh 'echo $USER'
         sh 'sshpass -p ${SERVER_PASS} ssh ${CONTABO_USER_NAME}@${CONTABO_SERVER_IP}'
+        sh 'echo $USER'
         sh 'docker kill $(docker ps -q) || true'
         sh 'docker rm $(docker ps -a -q) || true'
         sh 'docker rmi $(docker images -q) || true'
