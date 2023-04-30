@@ -16,5 +16,5 @@ public final class Constants {
     public static final String USER_EMAIL_HEADER = "UserEmail";
     public static final String USER_INPUT_HEADER = "UserInput";
     public static final String BOT_BASE_URL = "baseUrl";
-    public static final String NGROK_GET_TUNNELS_URL = "http://127.0.0.1:4040/api/tunnels";
+    public static final String NGROK_GET_TUNNELS_URL = "http://host.docker.internal:4040/api/tunnels";
 }
