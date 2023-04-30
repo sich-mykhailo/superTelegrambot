@@ -23,8 +23,8 @@ pipeline {
   stages {
     stage('Delete old image') {
       steps {
-        sh '${CONNECT_TO_REMOTE_SERVER} docker kill $(docker ps -q) || true'
-        sh '${CONNECT_TO_REMOTE_SERVER} docker rm $(docker ps -a -q)'
+        sh '${CONNECT_TO_REMOTE_SERVER} docker kill ngrok/ngrok || true'
+        sh '${CONNECT_TO_REMOTE_SERVER} docker rm ngrok/ngrok || true'
         sh '${CONNECT_TO_REMOTE_SERVER} docker rmi $(docker images -q)'
       }
     }
