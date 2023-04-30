@@ -26,7 +26,7 @@ pipeline {
         sh '${CONNECT_TO_REMOTE_SERVER} docker kill ngrok || true'
         sh '${CONNECT_TO_REMOTE_SERVER} docker rm ngrok || true'
         sh  '${CONNECT_TO_REMOTE_SERVER} docker kill super-telegram-bot || true'
-        sh '${CONNECT_TO_REMOTE_SERVER} docker rmi super-telegram-bot || true'
+        sh '${CONNECT_TO_REMOTE_SERVER} docker rmi super-telegram-bot:latest || true'
       }
     }
 
@@ -34,7 +34,7 @@ pipeline {
       steps {
         sh 'echo "convert http to https"'
         sh '${CONNECT_TO_REMOTE_SERVER} \
-            docker run -d -e NGROK_AUTHTOKEN=${NGROK_TOKEN} -p 4040:4040 ngrok/ngrok http ${PORT} ngrok'
+            docker run -d -e NGROK_AUTHTOKEN=${NGROK_TOKEN} -p 4040:4040 ngrok/ngrok http ${PORT} --name ngrok'
       }
     }
 
@@ -60,7 +60,7 @@ pipeline {
                           -e TELEGRAM_ADMIN_EMAIL=${TELEGRAM_ADMIN_EMAIL} \
                           -e TELEGRAM_BOT_TOKEN=${TELEGRAM_BOT_TOKEN} \
                           -e TELEGRAM_BOT_USER_NAME=${TELEGRAM_BOT_USER_NAME} \
-                          -e TELEGRAM_HELP_EMAIL=${TELEGRAM_HELP_EMAIL} -d --name container -p ${PORT}:${PORT} super-telegram-bot:latest'
+                          -e TELEGRAM_HELP_EMAIL=${TELEGRAM_HELP_EMAIL} -d --name super-telegram-bot -p ${PORT}:${PORT} super-telegram-bot:latest'
       }
     }
   }
