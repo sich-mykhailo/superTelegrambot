@@ -26,26 +26,26 @@ pipeline {
   stages {
     stage('Delete old image') {
       steps {
-        sh 'echo $USER'
-        sh 'sshpass -p ${SERVER_PASS} ssh ${CONTABO_USER_NAME}@${CONTABO_SERVER_IP}'
-        sh 'echo $USER'
-        sh 'docker kill $(docker ps -q) || true'
-        sh 'docker rm $(docker ps -a -q) || true'
-        sh 'docker rmi $(docker images -q) || true'
+        sh 'sshpass -p ${SERVER_PASS} ssh ${CONTABO_USER_NAME}@${CONTABO_SERVER_IP} echo "$USER" \
+             && docker kill $(docker ps -q) || true \
+             && docker rm $(docker ps -a -q) || true \
+             && docker rmi $(docker images -q) || true'
       }
     }
 
     stage('Adjust NgRok') {
       steps {
         sh 'echo "convert http to https"'
-        sh 'docker run -d -e NGROK_AUTHTOKEN=${NGROK_TOKEN} -p 4040:4040 ngrok/ngrok http ${PORT}'
+        sh 'sshpass -p ${SERVER_PASS} ssh ${CONTABO_USER_NAME}@${CONTABO_SERVER_IP} \
+            docker run -d -e NGROK_AUTHTOKEN=${NGROK_TOKEN} -p 4040:4040 ngrok/ngrok http ${PORT}'
       }
     }
 
     stage('Build Docker Image') {
       steps {
         sh 'echo "build.."'
-        sh 'docker build https://github.com/sich-mykhailo/superTelegrambot.git -t super-telegram-bot:latest'
+        sh 'sshpass -p ${SERVER_PASS} ssh ${CONTABO_USER_NAME}@${CONTABO_SERVER_IP} \
+            docker build https://github.com/sich-mykhailo/superTelegrambot.git -t super-telegram-bot:latest'
       }
     }
 
