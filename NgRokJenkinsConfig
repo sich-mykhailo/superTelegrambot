@@ -1,0 +1,23 @@
+pipeline {
+  agent any
+  environment {
+    NGROK_TOKEN='${NGROK_TOKEN}'
+    CONNECT_TO_REMOTE_SERVER="${CONNECT_TO_REMOTE_SERVER}"
+  }
+
+  stages {
+    stage('Delete old image') {
+      steps {
+        sh '${CONNECT_TO_REMOTE_SERVER} docker rmi ngrok/ngrok:latest --force || true'
+      }
+    }
+
+    stage('Adjust NgRok') {
+      steps {
+        sh 'echo "convert http to https"'
+        sh '${CONNECT_TO_REMOTE_SERVER} \
+            docker run -d -e NGROK_AUTHTOKEN=${NGROK_TOKEN} -p 4040:4040 ngrok/ngrok http ${PORT}'
+      }
+    }
+  }
+}
