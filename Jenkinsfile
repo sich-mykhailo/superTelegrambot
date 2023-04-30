@@ -7,7 +7,6 @@ pipeline {
     AWS_SECRET_KEY="${AWS_SECRET_KEY}"
     AWS_SQS_URI="${AWS_SQS_URI}"
     OLX_TOKEN="${OLX_TOKEN}"
-    NGROK_TOKEN='${NGROK_TOKEN}'
     DB_PASSWORD="${DB_PASSWORD}"
     DB_URL="${DB_URL}"
     DB_USER_NAME="${DB_USER_NAME}"
@@ -23,16 +22,8 @@ pipeline {
   stages {
     stage('Delete old image') {
       steps {
-        sh '${CONNECT_TO_REMOTE_SERVER} docker rmi ngrok/ngrok:latest --force || true'
+        sh '${CONNECT_TO_REMOTE_SERVER} docker stop super-telegram-bot || true && docker rm super-telegram-bot || true'
         sh '${CONNECT_TO_REMOTE_SERVER} docker rmi super-telegram-bot:latest --force || true'
-      }
-    }
-
-    stage('Adjust NgRok') {
-      steps {
-        sh 'echo "convert http to https"'
-        sh '${CONNECT_TO_REMOTE_SERVER} \
-            docker run -d -e NGROK_AUTHTOKEN=${NGROK_TOKEN} -p 4040:4040 ngrok/ngrok http ${PORT} --name ngrok'
       }
     }
 
