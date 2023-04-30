@@ -26,8 +26,8 @@ pipeline {
   stages {
     stage('Delete old image') {
       steps {
-        sh 'sshpass -p ${SERVER_PASS} ssh ${CONTABO_USER_NAME}@${CONTABO_SERVER_IP} echo "$USER" \
-             && docker kill $(docker ps -q) || true \
+        sh 'sshpass -p ${SERVER_PASS} ssh ${CONTABO_USER_NAME}@${CONTABO_SERVER_IP}
+             docker kill $(docker ps -q) || true \
              && docker rm $(docker ps -a -q) || true \
              && docker rmi $(docker images -q) || true'
       }
