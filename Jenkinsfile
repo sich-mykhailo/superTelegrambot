@@ -23,10 +23,8 @@ pipeline {
   stages {
     stage('Delete old image') {
       steps {
-        sh '${CONNECT_TO_REMOTE_SERVER} docker kill ngrok || true'
-        sh '${CONNECT_TO_REMOTE_SERVER} docker rm ngrok || true'
-        sh  '${CONNECT_TO_REMOTE_SERVER} docker kill super-telegram-bot || true'
-        sh '${CONNECT_TO_REMOTE_SERVER} docker rmi super-telegram-bot:latest || true'
+        sh '${CONNECT_TO_REMOTE_SERVER} docker rmi ngrok/ngrok:latest --force || true'
+        sh '${CONNECT_TO_REMOTE_SERVER} docker rmi super-telegram-bot:latest --force || true'
       }
     }
 
