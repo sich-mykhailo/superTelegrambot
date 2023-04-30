@@ -25,7 +25,8 @@ pipeline {
   stages {
     stage('Delete old image') {
       steps {
-        sh 'ssh -t -i ${PRIVATE_SSH_KAY} ${CONTABO_USER_NAME}@${CONTABO_SERVER_IP}'
+        sh 'echo $USER'
+        sh 'ssh -i ${PRIVATE_SSH_KAY} ${CONTABO_USER_NAME}@${CONTABO_SERVER_IP}'
         sh 'docker kill $(docker ps -q) || true'
         sh 'docker rm $(docker ps -a -q) || true'
         sh 'docker rmi $(docker images -q) || true'
