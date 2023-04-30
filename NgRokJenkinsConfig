@@ -9,7 +9,7 @@ pipeline {
   stages {
     stage('Delete old image') {
       steps {
-        sh '${CONNECT_TO_REMOTE_SERVER} docker rmi ngrok/ngrok:latest'
+        sh '${CONNECT_TO_REMOTE_SERVER} docker rmi ngrok/ngrok:latest || true'
       }
     }
 
