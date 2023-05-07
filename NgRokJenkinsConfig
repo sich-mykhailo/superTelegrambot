@@ -18,7 +18,7 @@ pipeline {
       steps {
         sh 'echo "convert http to https"'
         sh '${CONNECT_TO_REMOTE_SERVER} \
-            docker run -d -p 4040:4040 -e NGROK_AUTHTOKEN=${NGROK_TOKEN} --name ngrok_container ngrok/ngrok http ${LOCAL_SERVER_IP}:5050'
+            docker run -it -p 4040:4040 -e NGROK_AUTHTOKEN=${NGROK_TOKEN} --name ngrok_container ngrok/ngrok http ${LOCAL_SERVER_IP}:5050'
       }
     }
   }
