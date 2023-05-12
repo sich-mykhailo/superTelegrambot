@@ -41,7 +41,7 @@ pipeline {
       sh '${CONNECT_TO_REMOTE_SERVER} \
           docker run -e AWS_ACCESS_KEY=${AWS_ACCESS_KEY} \
                           -e AWS_SECRET_KEY=${AWS_SECRET_KEY} \
-                          -e AWS_SQS_URI=${AWS_SQS_URI} \
+                           -e AWS_SQS_URI=${AWS_SQS_URI} \
                           -e DB_PASSWORD=${DB_PASSWORD} \
                           -e DB_URL=${DB_URL} \
                           -e DB_USER_NAME=${DB_USER_NAME} \
