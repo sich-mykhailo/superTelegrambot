@@ -90,7 +90,7 @@ pipeline {
                       - NGROK_AUTHTOKEN=${NGROK_TOKEN} \
                     container_name: ng_rok_container \
                     command: http bot-container:5050 \
-          " >> docker-compose.yml'
+          " > docker-compose.yml'
       sh '${CONNECT_TO_REMOTE_SERVER} \
           docker-compose up'
       }
