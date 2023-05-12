@@ -49,34 +49,34 @@ pipeline {
                     restart: always
                     build: .
                     ports:
-                      - "5050:5050"
+                      - \"5050:5050\"
                     depends_on:
                       - ng_rok
                     environment:
                       SPRING_APPLICATION_JSON: \'{
-                        "spring.jpa.hibernate.ddl-auto" : "none",
-                        "spring.datasource.url" : "${DB_URL}",
-                        "spring.datasource.username" : "${DB_USER_NAME}",
-                        "spring.datasource.password" : "${DB_PASSWORD}",
-                        "spring.jpa.database-platform" : "org.hibernate.dialect.PostgreSQL94Dialect",
-                        "spring.datasource.driver-class-name" : "org.postgresql.Driver",
-                        "bot.username" : "${TELEGRAM_BOT_USER_NAME}",
-                        "bot.token" : "${TELEGRAM_BOT_TOKEN}",
-                        "server.port" : "5050",
-                        "notification.email.admin" : "${TELEGRAM_ADMIN_EMAIL}",
-                        "bot.address.help" : "${TELEGRAM_HELP_EMAIL}",
-                        "cloud.aws.credentials.access-key" : "${AWS_ACCESS_KEY}",
-                        "cloud.aws.credentials.secret-key" : "${AWS_SECRET_KEY}",
-                        "cloud.aws.region.static" : "us-east-1",
-                        "cloud.aws.region.auto" : "false",
-                        "cloud.aws.stack.auto" : "false",
-                        "cloud.aws.end-point.uri" : "${AWS_SQS_URI}",
-                        "spring.mail.host" : "smtp.gmail.com",
-                        "spring.mail.port" : "587",
-                        "spring.mail.username" : "${MAIL_USER_NAME}",
-                        "spring.mail.password" : "${MAIL_PASSWORD}",
-                        "spring.mail.properties.mail.smtp.auth" : "true",
-                        "spring.mail.properties.mail.smtp.starttls.enable" : "true"
+                        \"spring.jpa.hibernate.ddl-auto\" : \"none\",
+                        \"spring.datasource.url\" : \"${DB_URL}\",
+                        \"spring.datasource.username\" : \"${DB_USER_NAME}\",
+                        \"spring.datasource.password" : \"${DB_PASSWORD}\",
+                        \"spring.jpa.database-platform\" : \"org.hibernate.dialect.PostgreSQL94Dialect\",
+                        \"spring.datasource.driver-class-name\" : \"org.postgresql.Driver\",
+                        \"bot.username\" : \"${TELEGRAM_BOT_USER_NAME}\",
+                        \"bot.token\" : \"${TELEGRAM_BOT_TOKEN}\",
+                        \"server.port\" : \"5050\",
+                        \"notification.email.admin\" : \"${TELEGRAM_ADMIN_EMAIL}\",
+                        \"bot.address.help\" : \"${TELEGRAM_HELP_EMAIL}\",
+                        \"cloud.aws.credentials.access-key\" : \"${AWS_ACCESS_KEY}\",
+                        \"cloud.aws.credentials.secret-key\" : \"${AWS_SECRET_KEY}\",
+                        \"cloud.aws.region.static\" : \"us-east-1\",
+                        \"cloud.aws.region.auto\" : \"false\",
+                        \"cloud.aws.stack.auto\" : \"false\",
+                        \"cloud.aws.end-point.uri\" : \"${AWS_SQS_URI}\",
+                        \"spring.mail.host\" : \"smtp.gmail.com\",
+                        \"spring.mail.port\" : \"587\",
+                        \"spring.mail.username\" : \"${MAIL_USER_NAME}\",
+                        \"spring.mail.password\" : \"${MAIL_PASSWORD}\",
+                        \"spring.mail.properties.mail.smtp.auth\" : \"true\",
+                        \"spring.mail.properties.mail.smtp.starttls.enable\" : \"true\"
                       }\'
                     container_name: bot-container
 
