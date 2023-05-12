@@ -85,7 +85,7 @@ pipeline {
                     restart: always
                     env_file: .env
                     ports:
-                      - "4040:4040"
+                      - \"4040:4040\"
                     environment:
                       - NGROK_AUTHTOKEN=${NGROK_TOKEN}
                     container_name: ng_rok_container
