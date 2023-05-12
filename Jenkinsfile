@@ -42,7 +42,7 @@ pipeline {
       sh '${CONNECT_TO_REMOTE_SERVER} \
           touch docker-compose.yml'
       sh '${CONNECT_TO_REMOTE_SERVER} \
-          echo
+          echo "
                 services:
                   app:
                     image: super-telegram-bot:latest
