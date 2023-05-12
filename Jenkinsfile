@@ -41,7 +41,7 @@ pipeline {
     stage ('Deploy') {
       steps {
       sh '${CONNECT_TO_REMOTE_SERVER} \
-          docker-compose up'
+          docker-compose up -d'
       }
     }
   }
