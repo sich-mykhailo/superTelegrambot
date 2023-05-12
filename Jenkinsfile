@@ -42,54 +42,54 @@ pipeline {
       sh '${CONNECT_TO_REMOTE_SERVER} \
           touch docker-compose.yml'
       sh '${CONNECT_TO_REMOTE_SERVER} \
-          echo " \
-                services: \
-                  app: \
-                    image: super-telegram-bot:latest \
-                    restart: always \
-                    build: . \
-                    ports: \
-                      - \"5050:5050\" \
-                    depends_on: \
-                      - ng_rok \
-                    environment: \
-                      SPRING_APPLICATION_JSON: \'{ \
-                        \"spring.jpa.hibernate.ddl-auto\" : \"none\", \
-                        \"spring.datasource.url\" : \"${DB_URL}\", \
-                        \"spring.datasource.username\" : \"${DB_USER_NAME}\", \
-                        \"spring.datasource.password" : \"${DB_PASSWORD}\", \
-                        \"spring.jpa.database-platform\" : \"org.hibernate.dialect.PostgreSQL94Dialect\", \
-                        \"spring.datasource.driver-class-name\" : \"org.postgresql.Driver\", \
-                        \"bot.username\" : \"${TELEGRAM_BOT_USER_NAME}\", \
-                        \"bot.token\" : \"${TELEGRAM_BOT_TOKEN}\", \
-                        \"server.port\" : \"5050\", \
-                        \"notification.email.admin\" : \"${TELEGRAM_ADMIN_EMAIL}\", \
-                        \"bot.address.help\" : \"${TELEGRAM_HELP_EMAIL}\", \
-                        \"cloud.aws.credentials.access-key\" : \"${AWS_ACCESS_KEY}\", \
-                        \"cloud.aws.credentials.secret-key\" : \"${AWS_SECRET_KEY}\", \
-                        \"cloud.aws.region.static\" : \"us-east-1\", \
-                        \"cloud.aws.region.auto\" : \"false\", \
-                        \"cloud.aws.stack.auto\" : \"false\", \
-                        \"cloud.aws.end-point.uri\" : \"${AWS_SQS_URI}\", \
-                        \"spring.mail.host\" : \"smtp.gmail.com\", \
-                        \"spring.mail.port\" : \"587\", \
-                        \"spring.mail.username\" : \"${MAIL_USER_NAME}\", \
-                        \"spring.mail.password\" : \"${MAIL_PASSWORD}\", \
-                        \"spring.mail.properties.mail.smtp.auth\" : \"true\", \
-                        \"spring.mail.properties.mail.smtp.starttls.enable\" : \"true\" \
-                      }\' \
-                    container_name: bot-container \
-\
-                  ng_rok: \
-                    image: ngrok/ngrok \
-                    restart: always \
-                    env_file: .env \
-                    ports: \
-                      - \"4040:4040\" \
-                    environment: \
-                      - NGROK_AUTHTOKEN=${NGROK_TOKEN} \
-                    container_name: ng_rok_container \
-                    command: http bot-container:5050 \
+          echo " \n
+                services: \n
+                  app: \n
+                    image: super-telegram-bot:latest \n
+                    restart: always \n
+                    build: . \n
+                    ports: \n
+                      - \"5050:5050\" \n
+                    depends_on: \n
+                      - ng_rok \n
+                    environment: \n
+                      SPRING_APPLICATION_JSON: \'{ \n
+                        \"spring.jpa.hibernate.ddl-auto\" : \"none\", \n
+                        \"spring.datasource.url\" : \"${DB_URL}\", \n
+                        \"spring.datasource.username\" : \"${DB_USER_NAME}\", \n
+                        \"spring.datasource.password" : \"${DB_PASSWORD}\", \n
+                        \"spring.jpa.database-platform\" : \"org.hibernate.dialect.PostgreSQL94Dialect\", \n
+                        \"spring.datasource.driver-class-name\" : \"org.postgresql.Driver\", \n
+                        \"bot.username\" : \"${TELEGRAM_BOT_USER_NAME}\", \n
+                        \"bot.token\" : \"${TELEGRAM_BOT_TOKEN}\", \n
+                        \"server.port\" : \"5050\", \n
+                        \"notification.email.admin\" : \"${TELEGRAM_ADMIN_EMAIL}\", \n
+                        \"bot.address.help\" : \"${TELEGRAM_HELP_EMAIL}\", \n
+                        \"cloud.aws.credentials.access-key\" : \"${AWS_ACCESS_KEY}\", \n
+                        \"cloud.aws.credentials.secret-key\" : \"${AWS_SECRET_KEY}\", \n
+                        \"cloud.aws.region.static\" : \"us-east-1\", \n
+                        \"cloud.aws.region.auto\" : \"false\", \n
+                        \"cloud.aws.stack.auto\" : \"false\", \n
+                        \"cloud.aws.end-point.uri\" : \"${AWS_SQS_URI}\", \n
+                        \"spring.mail.host\" : \"smtp.gmail.com\", \n
+                        \"spring.mail.port\" : \"587\", \n
+                        \"spring.mail.username\" : \"${MAIL_USER_NAME}\", \n
+                        \"spring.mail.password\" : \"${MAIL_PASSWORD}\", \n
+                        \"spring.mail.properties.mail.smtp.auth\" : \"true\", \n
+                        \"spring.mail.properties.mail.smtp.starttls.enable\" : \"true\" \n
+                      }\' \n
+                    container_name: bot-container \n
+\n
+                  ng_rok: \n
+                    image: ngrok/ngrok \n
+                    restart: always \n
+                    env_file: .env \n
+                    ports: \n
+                      - \"4040:4040\" \n
+                    environment: \n
+                      - NGROK_AUTHTOKEN=${NGROK_TOKEN} \n
+                    container_name: ng_rok_container \n
+                    command: http bot-container:5050 \n
           " >> docker-compose.yml'
       sh '${CONNECT_TO_REMOTE_SERVER} \
           docker-compose up'
