@@ -1,9 +1,9 @@
 package com.parser.bot.service.states.menu;
 
 import com.parser.bot.entity.BotUser;
-import com.parser.bot.service.BotService;
-import com.parser.bot.service.KeyboardCreator;
-import com.parser.bot.service.UserService;
+import com.parser.bot.service.bot.BotService;
+import com.parser.bot.service.handlers.KeyboardCreator;
+import com.parser.bot.service.user.UserService;
 import com.parser.bot.service.states.BotContext;
 import com.parser.bot.service.states.ChatEvent;
 import com.parser.bot.service.states.ChatState;
@@ -63,7 +63,7 @@ public class Waiting implements State {
             case CHECK_REQUESTS -> {
                 BotUser currentUser = userService.findByChatId(chatId);
                 botService.sendMessage(chatId, String.format(REQUESTS_CHECK_MESSAGE,
-                        currentUser.getProcessCount(), currentUser.getProcessLimit()));
+                        getRequestAmountPerMonth(currentUser.getUserHistory()), currentUser.getLimitPerMonth()));
             }
 
             case PUT_IN_QUEUE -> {

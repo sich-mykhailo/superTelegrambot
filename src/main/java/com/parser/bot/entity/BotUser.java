@@ -4,13 +4,8 @@ import com.parser.bot.service.states.ChatState;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.GenerationType;
-import javax.persistence.Enumerated;
-import javax.persistence.EnumType;
+import javax.persistence.*;
+import java.util.List;
 import java.util.UUID;
 
 @Getter
@@ -29,9 +24,10 @@ public class BotUser {
     String email;
     String phone;
     Boolean admin;
-    Integer processCount;
-    Integer processLimit;
+    Integer limitPerMonth;
     boolean isRegistered;
     UUID assesKey;
     String category;
+    @OneToMany(mappedBy = "userId", cascade = CascadeType.ALL, orphanRemoval = true)
+    List<UserHistory> userHistory;
 }

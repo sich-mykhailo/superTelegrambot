@@ -1,4 +1,4 @@
-package com.parser.bot.service;
+package com.parser.bot.service.handlers;
 
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;

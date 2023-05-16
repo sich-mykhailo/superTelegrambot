@@ -1,4 +1,4 @@
-package com.parser.bot.service;
+package com.parser.bot.service.bot;
 
 import com.parser.bot.service.states.BotContext;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboard;

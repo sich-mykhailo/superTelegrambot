@@ -1,5 +1,6 @@
-package com.parser.bot.service;
+package com.parser.bot.service.handlers;
 
+import com.parser.bot.service.bot.BotService;
 import com.parser.util.Emojis;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;

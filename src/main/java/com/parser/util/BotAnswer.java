@@ -62,9 +62,10 @@ public class BotAnswer {
     public static final String SELECT_CATEGORY_MESSAGE = "Виберіть категорію";
     public static final String CATEGORY_IS_CHOSEN = "Категорію вибрано. Введіть, будь ласка, ваш запит " + Emojis.ARROW_DOWN;
     public static final String REQUEST_ERROR_MESSAGE = "Бррр...щось не так..";
-    public static final String PARSE_START_MESSAGE = "Запит поставлено в чергу - <b> %s </b>.\n Потрібно трохи зачекати";
-    public static final String REQUESTS_CHECK_MESSAGE = "Кількість запитів, які знаходяться в обробці - %s \nКількість доступних запитів - %s";
+    public static final String PARSE_START_MESSAGE = "Запит поставлено в чергу - <b> %s </b>.\nБудь ласка, очікуйте на результат (10-15хв)";
+    public static final String REQUESTS_CHECK_MESSAGE = "Кількість використаних запитів - %s \nКількість доступних запитів в місяць - %s";
     public static final String CONTINUE_REQUEST_MESSAGE = "Потрібно закінчити надсилання запиту. Виберіть категорію та введіть текст для обробки";
+    public static final String CANT_DO_REQUEST_MESSAGE = "На жаль, у вас закінчились доступні запити цього місяця, зверніться, будь ласка, до адміністратора";
 
     /**
      * ADMIN_ANSWERS

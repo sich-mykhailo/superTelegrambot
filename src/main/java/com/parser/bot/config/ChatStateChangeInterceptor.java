@@ -1,7 +1,7 @@
 package com.parser.bot.config;
 
 import com.parser.bot.entity.BotUser;
-import com.parser.bot.service.UserService;
+import com.parser.bot.service.user.UserService;
 import com.parser.bot.service.states.ChatEvent;
 import com.parser.bot.service.states.ChatState;
 import lombok.AccessLevel;

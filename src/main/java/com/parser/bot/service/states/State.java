@@ -2,11 +2,15 @@ package com.parser.bot.service.states;
 
 import com.parser.bot.config.ChatStateChangeInterceptor;
 import com.parser.bot.entity.BotUser;
+import com.parser.bot.entity.UserHistory;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.statemachine.StateMachine;
 import org.springframework.statemachine.support.DefaultStateMachineContext;
 import org.telegram.telegrambots.meta.api.methods.BotApiMethod;
+
+import java.time.LocalDate;
+import java.util.List;
 
 import static com.parser.util.Constants.CHAT_ID_HEADER;
 
@@ -31,5 +35,12 @@ public interface State {
                             new DefaultStateMachineContext<>(botUser.getState(),
                                     null, null, null, null));
                 });
+    }
+
+    default int getRequestAmountPerMonth(List<UserHistory> userHistoryList) {
+        LocalDate endOfPreviousMonth = LocalDate.now().withDayOfMonth(1).minusDays(1);
+        return (int) userHistoryList.stream()
+                .filter(userHistory -> userHistory.getCreatedAt().isAfter(endOfPreviousMonth))
+                .count();
     }
 }

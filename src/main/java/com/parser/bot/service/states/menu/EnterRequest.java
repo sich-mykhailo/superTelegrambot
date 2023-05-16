@@ -2,8 +2,9 @@ package com.parser.bot.service.states.menu;
 
 import com.parser.amazon.sqs.service.SqsService;
 import com.parser.bot.entity.BotUser;
-import com.parser.bot.service.BotService;
-import com.parser.bot.service.UserService;
+import com.parser.bot.service.bot.BotService;
+import com.parser.bot.service.user.UserHistoryService;
+import com.parser.bot.service.user.UserService;
 import com.parser.bot.service.states.BotContext;
 import com.parser.bot.service.states.State;
 import com.parser.bot.service.states.ChatEvent;
@@ -25,30 +26,42 @@ import static com.parser.util.BotAnswer.*;
 public class EnterRequest implements State {
     UserService userService;
     BotService botService;
+    UserHistoryService userHistoryService;
     SqsService sqsService;
 
     @Override
     public BotApiMethod<?> handleInput(BotContext context) {
         if (isMenuCommand(context.input())) {
-            botService.sendMessage(context.botUser().getChatId(), CONTINUE_REQUEST_MESSAGE  );
+            botService.sendMessage(context.botUser().getChatId(), CONTINUE_REQUEST_MESSAGE);
             return null;
         }
         BotUser botUser = context.botUser();
         String input = context.input();
         String chatId = context.botUser().getChatId();
         try {
-            String inputData = input.toLowerCase().trim().replaceAll(" ", "-");
-            String url = botUser.getCategory() + inputData + "/";
-            botUser.setCategory(OlxUrls.AAL_CATEGORY);
-            userService.update(botUser);
-            sqsService.putMessageInQueue("new message", botUser.getEmail(), botUser.getChatId(), url);
-            botService.sendMessage(botUser.getChatId(), String.format(PARSE_START_MESSAGE, input));
-            sendEvent(chatId, context.stateMachine(), ChatEvent.SUCCEED);
+            if (checkUserRequests(botUser)) {
+                String inputData = input.toLowerCase().trim().replaceAll(" ", "-");
+                String url = botUser.getCategory() + inputData + "/";
+                botUser.setCategory(OlxUrls.AAL_CATEGORY);
+                userService.update(botUser);
+                sqsService.putMessageInQueue("new message", botUser.getEmail(), botUser.getChatId(), url);
+                botService.sendMessage(botUser.getChatId(), String.format(PARSE_START_MESSAGE, input));
+                sendEvent(chatId, context.stateMachine(), ChatEvent.SUCCEED);
+                userHistoryService.create(botUser.getId(), inputData);
+            }
         } catch (Exception e) {
             botService.sendMessage(botUser.getChatId(), REQUEST_ERROR_MESSAGE);
             log.error("Something went wrong", e);
         }
         return null;
+    }
+
+    private boolean checkUserRequests(BotUser botUser) {
+        if (getRequestAmountPerMonth(botUser.getUserHistory()) >= botUser.getLimitPerMonth()) {
+            botService.sendMessage(botUser.getChatId(), CANT_DO_REQUEST_MESSAGE);
+            return false;
+        }
+        return true;
     }
 
     private boolean isMenuCommand(String command) {

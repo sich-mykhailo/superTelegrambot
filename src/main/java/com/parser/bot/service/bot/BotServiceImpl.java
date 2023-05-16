@@ -1,5 +1,7 @@
-package com.parser.bot.service;
+package com.parser.bot.service.bot;
 
+import com.parser.bot.service.Bot;
+import com.parser.bot.service.handlers.KeyboardCreator;
 import com.parser.bot.service.states.BotContext;
 import com.parser.util.BotCommands;
 import com.parser.util.Constants;

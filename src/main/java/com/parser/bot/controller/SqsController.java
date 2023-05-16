@@ -1,7 +1,7 @@
 package com.parser.bot.controller;
 
 import com.parser.bot.dto.QueueDto;
-import com.parser.bot.service.BotService;
+import com.parser.bot.service.bot.BotService;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;

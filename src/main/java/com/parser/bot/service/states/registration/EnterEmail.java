@@ -1,8 +1,8 @@
 package com.parser.bot.service.states.registration;
 
 import com.parser.bot.entity.BotUser;
-import com.parser.bot.service.BotService;
-import com.parser.bot.service.UserService;
+import com.parser.bot.service.bot.BotService;
+import com.parser.bot.service.user.UserService;
 import com.parser.bot.service.states.BotContext;
 import com.parser.bot.service.states.State;
 import com.parser.util.EmailUtils;
