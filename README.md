@@ -2,7 +2,9 @@
 "Super Telegram Bot" is a Telegram bot that communicates with users and can provide results in the form of an Excel spreadsheet on Google Drive. This program interacts with other instances parsers that process the requests.
 <br>
 <h2></h2>
-To get started, please access the Telegram bot by following this link : https://t.me/turbo_parser_bot
+This project has already been deployed, so you can use it as a user by accessing it through this link : https://t.me/turbo_parser_bot
+
+However, you will need to message me on Telegram and I can get you the key. It's easy to do, just click on the HELP button in the bottom left corner of the "Menu" in the Telegram bot and send me a message.
 <h2></h2>
 The description for this diagram can be found here: https://github.com/sich-mykhailo/parser in README file
 <img width="1173" alt="Screenshot 2023-01-07 at 17 49 24" src="https://user-images.githubusercontent.com/11314278/211543063-7e26ca6e-a803-469d-8b68-f929100c690a.png">
@@ -30,7 +32,7 @@ c) In order for a user to be able to use the bot, you will need to provide them 
 d) Create your own telegram bot with [Bot Father](https://t.me/BotFather)
  - TELEGRAM_BOT_TOKEN<br>
  - TELEGRAM_BOT_USER_NAME (Telegram bot's username)<br>
- - TELEGRAM_HELP_EMAIL (your Telegram account's email address)<br>
+ - TELEGRAM_HELP_EMAIL (your Telegram account's address)<br>
  
 e) Use port 5050<br>
  - PORT=5050<br>
