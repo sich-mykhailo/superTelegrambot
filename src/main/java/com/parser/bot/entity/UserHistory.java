@@ -3,7 +3,6 @@ package com.parser.bot.entity;
 
 import lombok.*;
 import lombok.experimental.FieldDefaults;
-
 import javax.persistence.*;
 import java.time.LocalDate;
 
@@ -22,11 +21,4 @@ public class UserHistory {
     BotUser userId;
     String nameOfOrder;
     LocalDate createdAt;
-
-    public UserHistory() {
-    }
-
-    public UserHistory(String url) {
-        nameOfOrder = url;
-    }
 }

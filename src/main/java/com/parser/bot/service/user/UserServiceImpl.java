@@ -16,8 +16,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public BotUser findByChatId(String id) {
-        return userRepository.findByChatId(id).orElseThrow(()
-                -> new EntityNotFoundException("User not found"));
+        return userRepository.findByChatId(id);
     }
 
     public void addUser(BotUser botUser) {
@@ -53,6 +52,4 @@ public class UserServiceImpl implements UserService {
         return userRepository.findById(userId).orElseThrow(() ->
                 new EntityNotFoundException("User not found"));
     }
-
-
 }
